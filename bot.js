@@ -16,11 +16,11 @@ const opts1 = {
 
 const opts2 = {
   identity: {
-    username: 'fake_arseniya1',
+    username: 'fake_taer_bot',
     password: process.env.PASS2
   },
   channels: [
-    'fake_arseniya1'
+    'taerss'
   ]
 };
 
@@ -93,9 +93,9 @@ function onMessageHandler2(target, context, msg, self) {
       getMusic().then(data => {
           console.log(data);
           if (data.type == 'youtube'){
-            client2.say(target, '@' + context.username + ' Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' ' + 'https://www.youtube.com/watch?v='+data.url+' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj FeelsAmazingMan');
+            client2.say(target, '@' + context.username + ' Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' ' + 'https://www.youtube.com/watch?v='+data.url+' '+'Заходи к нам, пират: https://www.dubtrack.fm/join/cemkaplugdj FeelsAmazingMan');
           } else if (data.type == 'soundcloud'){
-            client2.say(target, '@' + context.username + ' Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj FeelsAmazingMan');
+            client2.say(target, '@' + context.username + ' Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' '+'Заходи к нам, пират: https://www.dubtrack.fm/join/cemkaplugdj FeelsAmazingMan');
           }
         });
     })();
