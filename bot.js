@@ -26,6 +26,7 @@ const opts2 = {
   ]
 };
 
+
 const client1 = new tmi.client(opts1);
 client1.on('message', onMessageHandler1);
 client1.on('connected', function(){ return connectClient(client1,opts1.channels[0]); });
