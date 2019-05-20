@@ -14,6 +14,8 @@ const opts1 = {
   ]
 };
 
+let bot1 = 1;
+
 const opts2 = {
   identity: {
     username: 'fake_taer_bot',
@@ -23,6 +25,7 @@ const opts2 = {
     'taerss'
   ]
 };
+
 
 const client1 = new tmi.client(opts1);
 client1.on('message', onMessageHandler1);
@@ -55,10 +58,19 @@ function connectClient (cl, chan){
         if (data.name != currentSong){
           console.log(data);
           currentSong = data.name;
-          if (data.type == 'youtube'){
-            cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' ' + 'https://www.youtube.com/watch?v='+data.url+' '+'cemkaPls');
-          } else if (data.type == 'soundcloud'){
-            cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj cemkaPls');
+          if ((chan == opts1.channels[0]) && (bot1 == 1)){
+            if (data.type == 'youtube'){
+              cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' ' + 'https://www.youtube.com/watch?v='+data.url+' '+'cemkaPls');
+            } else if (data.type == 'soundcloud'){
+              cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj cemkaPls');
+            }
+          }
+          if (chan == opts2.channels[0]){
+            if (data.type == 'youtube'){
+              cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' ' + 'https://www.youtube.com/watch?v='+data.url+' '+'cemkaPls');
+            } else if (data.type == 'soundcloud'){
+              cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj cemkaPls');
+            }
           }
         }
       });
@@ -70,17 +82,31 @@ function onMessageHandler1(target, context, msg, self) {
   if (self) {
     return;
   }
-  if (/!music/gi.test(msg)){
+  if (/!music/gi.test(msg) || /!song/gi.test(msg) || /!track/gi.test(msg) || /!dub/gi.test(msg) || /!трек/gi.test(msg)){
     (function newMusic() {
       getMusic().then(data => {
           console.log(data);
-          if (data.type == 'youtube'){
-            client1.say(target, '@' + context.username + ' Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' ' + 'https://www.youtube.com/watch?v='+data.url+' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj FeelsAmazingMan');
-          } else if (data.type == 'soundcloud'){
-            client1.say(target, '@' + context.username + ' Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj FeelsAmazingMan');
+          if (bot1 == 1){
+            if (data.type == 'youtube'){
+              client1.say(target, '@' + context.username + ' Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' ' + 'https://www.youtube.com/watch?v='+data.url+' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj FeelsAmazingMan');
+            } else if (data.type == 'soundcloud'){
+              client1.say(target, '@' + context.username + ' Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj FeelsAmazingMan');
+            }
           }
         });
     })();
+  }
+  if (/!fakeon/gi.test(msg)){
+    if ((context.badges && (context.badges.moderator || context.badges.broadcaster)) || (context.username == 'fake_fake_fake_')){
+      bot1 = 1;
+      client1.say(target, '@' + context.username + ' Бот включен');
+    }
+  }
+  if (/!fakeoff/gi.test(msg)){
+    if ((context.badges && (context.badges.moderator || context.badges.broadcaster)) || (context.username == 'fake_fake_fake_')){
+      bot1 = 0;
+      client1.say(target, '@' + context.username + ' Бот выключен');
+    }
   }
 }
 
@@ -88,7 +114,7 @@ function onMessageHandler2(target, context, msg, self) {
   if (self) {
     return;
   }
-  if (/!music/gi.test(msg)){
+  if (/!music/gi.test(msg) || /!song/gi.test(msg) || /!track/gi.test(msg) || /!dub/gi.test(msg) || /!трек/gi.test(msg)){
     (function newMusic() {
       getMusic().then(data => {
           console.log(data);
