@@ -50,6 +50,20 @@ function getMusic() {
     });
 }
 
+function streamLive(streamer){
+  var authOptions = {
+    method: 'GET',
+    url: `https://api.twitch.tv/kraken/streams/${streamer}`,
+    headers: {
+       'Client-ID': process.env.CLIENTID,
+       'Accept': 'application/vnd.twitchtv.v5+json'
+    },
+    json: true
+ };
+ return axios(authOptions)
+    .then(response => { return (response.data.stream != null);});
+ }
+
 function connectClient (cl, chan){
   (function onConnectedHandler() {
     var currentSong = '';
@@ -59,18 +73,26 @@ function connectClient (cl, chan){
           console.log(data);
           currentSong = data.name;
           if ((chan == opts1.channels[0]) && (bot1 == 1)){
-            if (data.type == 'youtube'){
-              cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' ' + 'https://www.youtube.com/watch?v='+data.url+' '+'cemkaPls');
-            } else if (data.type == 'soundcloud'){
-              cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj cemkaPls');
-            }
+            streamLive('118263259').then(ret => {
+              if (ret){
+                if (data.type == 'youtube'){
+                  cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' ' + 'https://www.youtube.com/watch?v='+data.url+' '+'cemkaPls');
+                } else if (data.type == 'soundcloud'){
+                  cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj cemkaPls');
+                }
+              }
+            });
           }
           if (chan == opts2.channels[0]){
-            if (data.type == 'youtube'){
-              cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' ' + 'https://www.youtube.com/watch?v='+data.url+' '+'cemkaPls');
-            } else if (data.type == 'soundcloud'){
-              cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj cemkaPls');
-            }
+            streamLive('36948149').then(ret => {
+              if (ret){
+                if (data.type == 'youtube'){
+                  cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' ' + 'https://www.youtube.com/watch?v='+data.url+' '+'cemkaPls');
+                } else if (data.type == 'soundcloud'){
+                  cl.say(chan, 'Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj cemkaPls');
+                }
+              }
+            });
           }
         }
       });
