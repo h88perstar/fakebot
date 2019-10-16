@@ -2,7 +2,7 @@ const axios = require('axios');
 const bot = require('./chat-bot.js');
 
 setInterval(() => {
-    axios.get('https://twitch-tts-bot-service.glitch.me/').then(data => {
+    axios.get('https://tts-bot-service.herokuapp.com/').then(data => {
         console.log('Ok');
     })
-}, (4 * 60 * 1000))
+}, (20 * 60 * 1000))
