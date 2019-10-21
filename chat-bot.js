@@ -61,7 +61,7 @@ function streamLive(streamer){
     json: true
  };
  return axios(authOptions)
-    .then(response => response.data.stream != null));
+    .then(response => response.data.stream != null);
  }
 
 function connectClient(){
