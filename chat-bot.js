@@ -22,11 +22,21 @@ connection: {
 };
 
 let bot1 = 1;
+let active = true;
 
 const client = new tmi.client(opts);
 client.on('message', onMessageHandler);
 client.on('connected', connectClient);
 client.connect();
+
+function setTimer(a) {
+  if (a) {
+    active = false;
+    setTimeout(() => {
+      active = true;
+    }, 15000)
+  }
+}
 
 function getMusic() {
   var authOptions = {
@@ -51,7 +61,7 @@ function streamLive(streamer){
     json: true
  };
  return axios(authOptions)
-    .then(response => { return (response.data.stream != null);});
+    .then(response => response.data.stream != null));
  }
 
 function connectClient(){
@@ -74,7 +84,7 @@ function connectClient(){
           }
         }
       });
-    },5000);
+    }, 5000);
   })();
 }
 
@@ -86,7 +96,8 @@ function onMessageHandler(target, context, msg, self) {
   if (/!music/gi.test(msg) || /!song/gi.test(msg) || /!track/gi.test(msg) || /!dub/gi.test(msg) || /!трек/gi.test(msg)){
     (function newMusic() {
       getMusic().then(data => {
-          if (bot1 == 1){
+          if (bot1 == 1 && active){
+            setTimer(active);
             if (data.type == 'youtube'){
               client.say(target, '@' + context.username + ' Сейчас играет: ' + data.name.replace(/\&apos\;/gi,'\'').replace(/\&amp\;/gi,'&').replace(/\&quot\;/gi,'"') + ' ' + 'https://www.youtube.com/watch?v='+data.url+' '+'Заходи к нам, жабич: https://www.dubtrack.fm/join/cemkaplugdj FeelsAmazingMan');
             } else if (data.type == 'soundcloud'){
