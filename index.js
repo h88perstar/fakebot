@@ -8,7 +8,7 @@ setInterval(() => {
 }, (20 * 60 * 1000));
 
 setInterval(() => {
-    axios.get('https://twitch-da-api.glitch.me/getDonations/123').then(data => {
+    axios.get('https://twitch-extension-da.herokuapp.com/getDonations/123').then(data => {
         console.log('Ok');
     })
-}, (4 * 60 * 1000));
+}, (21 * 60 * 1000));
