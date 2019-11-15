@@ -1,5 +1,5 @@
 const axios = require('axios');
-const bot = require('./chat-bot.js');
+// const bot = require('./chat-bot.js');
 
 setInterval(() => {
     axios.get('https://tts-bot-service.herokuapp.com/').then(data => {
